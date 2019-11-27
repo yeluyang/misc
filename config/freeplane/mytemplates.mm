@@ -6,7 +6,7 @@
             <node_leaf_condition/>
         </conditional_style>
     </conditional_styles>
-    <properties fit_to_viewport="false" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
+    <properties edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" show_note_icons="true" fit_to_viewport="false"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -41,20 +41,20 @@
 </stylenode>
 </stylenode>
 <stylenode LOCALIZED_TEXT="styles.AutomaticLayout" POSITION="right" STYLE="bubble">
-<stylenode LOCALIZED_TEXT="AutomaticLayout.level.root" COLOR="#000000" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="4.0 pt" SHAPE_VERTICAL_MARGIN="1.0 pt" VGAP_QUANTITY="16.0 pt" MAX_WIDTH="20.0 cm" BORDER_WIDTH_LIKE_EDGE="true">
-<font SIZE="30"/>
-<edge STYLE="horizontal" WIDTH="2"/>
-</stylenode>
-<stylenode LOCALIZED_TEXT="AutomaticLayout.level,1" COLOR="#0033ff" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="4.0 pt" SHAPE_VERTICAL_MARGIN="1.0 pt" VGAP_QUANTITY="16.0 pt" MAX_WIDTH="20.0 cm" BORDER_WIDTH_LIKE_EDGE="true">
-<font SIZE="22"/>
-<edge STYLE="horizontal" WIDTH="2"/>
-</stylenode>
-<stylenode LOCALIZED_TEXT="AutomaticLayout.level,2" COLOR="#00b439" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="4.0 pt" SHAPE_VERTICAL_MARGIN="1.0 pt" VGAP_QUANTITY="16.0 pt" MAX_WIDTH="20.0 cm" BORDER_WIDTH_LIKE_EDGE="true">
+<stylenode LOCALIZED_TEXT="AutomaticLayout.level.root" VGAP_QUANTITY="16.0 pt" COLOR="#111111" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="4.0 pt" SHAPE_VERTICAL_MARGIN="1.0 pt" MAX_WIDTH="20.0 cm" BORDER_WIDTH_LIKE_EDGE="true">
 <font SIZE="20"/>
 <edge STYLE="horizontal" WIDTH="2"/>
 </stylenode>
-<stylenode LOCALIZED_TEXT="AutomaticLayout.level,3" COLOR="#990000" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="4.0 pt" SHAPE_VERTICAL_MARGIN="1.0 pt" VGAP_QUANTITY="16.0 pt" MAX_WIDTH="20.0 cm" BORDER_WIDTH_LIKE_EDGE="true">
-<font SIZE="18"/>
+<stylenode LOCALIZED_TEXT="AutomaticLayout.level,1" VGAP_QUANTITY="16.0 pt" COLOR="#111111" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="4.0 pt" SHAPE_VERTICAL_MARGIN="1.0 pt" MAX_WIDTH="20.0 cm" BORDER_WIDTH_LIKE_EDGE="true">
+<font SIZE="16"/>
+<edge STYLE="horizontal" WIDTH="2"/>
+</stylenode>
+<stylenode LOCALIZED_TEXT="AutomaticLayout.level,2" VGAP_QUANTITY="16.0 pt" COLOR="#111111" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="4.0 pt" SHAPE_VERTICAL_MARGIN="1.0 pt" MAX_WIDTH="20.0 cm" BORDER_WIDTH_LIKE_EDGE="true">
+<font SIZE="14"/>
+<edge STYLE="horizontal" WIDTH="2"/>
+</stylenode>
+<stylenode LOCALIZED_TEXT="AutomaticLayout.level,3" VGAP_QUANTITY="16.0 pt" COLOR="#111111" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="4.0 pt" SHAPE_VERTICAL_MARGIN="1.0 pt" MAX_WIDTH="20.0 cm" BORDER_WIDTH_LIKE_EDGE="true">
+<font SIZE="14"/>
 <edge STYLE="horizontal" WIDTH="2"/>
 </stylenode>
 <stylenode LOCALIZED_TEXT="AutomaticLayout.level,4" COLOR="#111111" STYLE="bubble" SHAPE_HORIZONTAL_MARGIN="4.0 pt" SHAPE_VERTICAL_MARGIN="1.0 pt" VGAP_QUANTITY="16.0 pt" MAX_WIDTH="20.0 cm" BORDER_WIDTH_LIKE_EDGE="true">
@@ -94,6 +94,6 @@
 </map_styles>
 </hook>
 <hook NAME="AutomaticEdgeColor" COUNTER="3" RULE="FOR_BRANCHES"/>
-<hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
+<hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="HEADINGS"/>
 </node>
 </map>
