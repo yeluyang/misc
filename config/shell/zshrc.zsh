@@ -1,7 +1,7 @@
 # setup custom env
 
-export GOPATH=${HOME} && export GOBIN=${GOPATH}/bin && export GOPROXY="https://goproxy.io" && export GO111MODULE="auto"
-export RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup" && export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+source ${HOME}/.gvm/scripts/gvm && export GOPATH=${HOME} && export GOBIN=${GOPATH}/bin && export GOPROXY="https://goproxy.io" && export GO111MODULE="auto"
+export RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup" && export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup && source ${HOME}/.cargo/env
 
 # define custom command
 
