@@ -1,0 +1,13 @@
+{
+    "runtimes": {
+        "nvidia": {
+            "path": "/usr/bin/nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    },
+    "registry-mirrors": [
+        "https://registry.docker-cn.com",
+        "https://docker.mirrors.ustc.edu.cn/"
+    ]
+}
+
