@@ -33,7 +33,7 @@ cat << EOT
 setup successfully. now please do following things by manually:
 
   1. edit your own shadowsocks config from '/etc/shadowsocks/example.json'
-  2. run command 'sudo sslocal -c '/etc/shadowsocks/<your_config>.json -d start'
+  2. run command 'sudo sslocal -c /etc/shadowsocks/<your_config>.json -d start'
 
 now, you can use two method to access without jump server:
 
