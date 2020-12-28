@@ -18,4 +18,22 @@ cat << EOT > /etc/shadowsocks-libev/config.json
 EOT
 chmod 644 /etc/shadowsocks-libev/config.json
 
-systemctl restart shadowsocks-libev && systemctl enable shadowsocks-libev
+cat << EOT > /etc/systemd/system/shadowsocks.service
+[Unit]
+Description=Shadowsocks proxy server
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/usr/bin/ss-server -c /etc/shadowsocks-libev/config.json -v start
+ExecStop=/usr/bin/ss-server -c /etc/shadowsocks-libev/config.json -v stop
+
+[Install]
+WantedBy=multi-user.target
+EOT
+chmod 644 /etc/systemd/system/shadowsocks.service
+
+systemctl daemon-reload
+systemctl enable shadowsocks.service
+systemctl start shadowsocks.service
