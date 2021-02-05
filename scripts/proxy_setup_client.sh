@@ -2,8 +2,8 @@
 
 set -e
 
-command -v python3 >/dev/null || apt install python3
-command -v pip3 >/dev/null || apt install python3-pip
+command -v python3 >/dev/null || apt install -y python3
+command -v pip3 >/dev/null || apt install -y python3-pip
 pip3 install shadowsocks
 mkdir -p /etc/shadowsocks
 cat << EOT > /etc/shadowsocks/example.json
@@ -19,7 +19,7 @@ cat << EOT > /etc/shadowsocks/example.json
 }
 EOT
 
-command -v tsocks >/dev/null || apt install tsocks
+command -v tsocks >/dev/null || apt install -y tsocks
 mv /etc/tsocks.conf /etc/tsocks.conf.origin
 cat << EOT > /etc/tsocks.conf
 server = 127.0.0.1
@@ -27,7 +27,7 @@ server_type = 5
 server_port = 1086
 EOT
 
-command -v connect-proxy >/dev/null || apt install connect-proxy
+command -v connect-proxy >/dev/null || apt install -y connect-proxy
 
 cat << EOT
 setup successfully. now please do following things by manually:
