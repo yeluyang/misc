@@ -2,9 +2,14 @@
 
 export EDITOR=vim
 
-source ${HOME}/.gvm/scripts/gvm && export GOPATH=${HOME} && export GOBIN=${GOPATH}/bin && export GOPROXY="https://goproxy.io" && export GO111MODULE="auto"
+[[ -s "${HOME}/.gvm/scripts/gvm" ]] && source ${HOME}/.gvm/scripts/gvm && export GOPATH=${HOME} && export GOBIN=${GOPATH}/bin && export GOPROXY="https://goproxy.io" && export GO111MODULE="auto"
 
-export RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup" && export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup && source ${HOME}/.cargo/env
+[[ -s "$HOME/.cargo/env" ]] && source ${HOME}/.cargo/env && export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static && export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+
+case "$(uname -s)" in
+    Linux*)     export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/linuxbrew-bottles";;
+    Darwin*)    export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles";;
+esac
 
 # define custom command
 
@@ -15,5 +20,19 @@ function ss_client() {
         sudo sslocal -d $1 -c /etc/shadowsocks/$2.json
 }
 # terminal proxy
-alias proxy="export http_proxy=http://127.0.0.1:1080; export https_proxy=https://127.0.0.1:1080; export all_proxy=socks5://127.0.0.1:1080"
-alias unproxy="unset http_proxy; unset https_proxy"
+export SOCKS_ENDPOINT="socks5://127.0.0.1:1080"
+export SOCKS_HTTP_ENDPOINT="http://127.0.0.1:1087"
+alias proxy="
+        export all_proxy=${SOCKS_ENDPOINT};
+        export http_proxy=${SOCKS_HTTP_ENDPOINT};
+        export https_proxy=${SOCKS_HTTP_ENDPOINT};
+        export ALL_PROXY=${SOCKS_ENDPOINT};
+        export HTTP_PROXY=${SOCKS_HTTP_ENDPOINT};
+        export HTTPS_PROXY=${SOCKS_HTTP_ENDPOINT};"
+alias unproxy="
+        unset http_proxy;
+        unset https_proxy;
+        unset all_proxy;
+        unset HTTP_PROXY;
+        unset HTTPS_PROXY;
+        unset ALL_PROXY;"
