@@ -36,3 +36,7 @@ alias unproxy="
         unset HTTP_PROXY;
         unset HTTPS_PROXY;
         unset ALL_PROXY;"
+
+function proxy_ssh() {
+	tsocks ssh $*
+}

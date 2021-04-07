@@ -21,10 +21,10 @@ EOT
 
 command -v tsocks >/dev/null || apt install -y tsocks
 mv /etc/tsocks.conf /etc/tsocks.conf.origin
-cat << EOT > /etc/tsocks.conf
+cat << EOT > /etc/tsocks.example.conf
 server = 127.0.0.1
 server_type = 5
-server_port = 1086
+server_port = 1080
 EOT
 
 command -v connect-proxy >/dev/null || apt install -y connect-proxy
@@ -42,7 +42,7 @@ now, you can use two method to access without jump server:
      2.1 write following content in your '.ssh/config':
 
          Host example.*
-          ProxyCommand connect -S 127.0.0.1:1086 %h %p
+          ProxyCommand connect -S 127.0.0.1:1080 %h %p
 
      2.2 run 'ssh username@example.server.com' to access hosts under domain 'example.*' directly
 
