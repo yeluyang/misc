@@ -17,7 +17,8 @@ esac
 # local proxy server
 function ss_client() {
         # $1=(start|stop)
-        sudo sslocal -d $1 -c /etc/shadowsocks/$2.json
+	echo "running shadowsocks client with config=/etc/shadowsocks/$2.json, pid-file=/var/run/shadowsocks.$2.pid, log-file=/var/log/shadowsocks.$2.log"
+        sudo sslocal -d $1 --pid-file /var/run/shadowsocks.$2.pid --log-file /var/log/shadowsocks.$2.log -c /etc/shadowsocks/$2.json
 }
 # terminal proxy
 export SOCKS_ENDPOINT="socks5://127.0.0.1:1080"
