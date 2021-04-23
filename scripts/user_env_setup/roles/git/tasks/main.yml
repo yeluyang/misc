@@ -1,0 +1,43 @@
+---
+
+- name: install git
+  package:
+    name: git
+    state: present
+
+- name: install git-lfs
+  package:
+    name: git-lfs
+    state: present
+
+- name: setup git author name as {{ user.name }}
+  become: yes
+  become_user: "{{ user.name }}"
+  git_config:
+    name: user.name
+    scope: global
+    value: "{{ user.name }}"
+
+- name: setup git author email as {{ user.email }}
+  become: yes
+  become_user: "{{ user.name }}"
+  git_config:
+    name: user.email
+    scope: global
+    value: "{{ user.email }}"
+
+- name: setup git credential helper as store for {{ user.name }}
+  become: yes
+  become_user: "{{ user.name }}"
+  git_config:
+    name: credential.helper
+    scope: global
+    value: store
+
+- name: setup git push default as simple for {{ user.name }}
+  become: yes
+  become_user: "{{ user.name }}"
+  git_config:
+    name: push.default
+    scope: global
+    value: simple

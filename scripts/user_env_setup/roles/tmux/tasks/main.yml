@@ -1,0 +1,49 @@
+---
+- name: install tmux
+  package:
+    name: tmux
+    state: present
+
+- name: install perl for tmux config setup
+  package:
+    name: perl
+    state: present
+
+- name: install sed for tmux config setup
+  package:
+    name: sed
+    state: present
+
+- name: pull tmux config in {{ user.name }}
+  become: yes
+  become_user: "{{ user.name }}"
+  git:
+    repo: 'https://github.com/gpakosz/.tmux.git'
+    dest: /home/{{ user.name }}/.tmux
+
+- name: setup tmux config for {{ user.name }}
+  file:
+    state: link
+    src: /home/{{ user.name }}/.tmux/.tmux.conf
+    path: /home/{{ user.name }}/.tmux.conf
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "0755"
+
+- name: prepare for tmux config custom by {{ user.name }}
+  copy:
+    remote_src: yes
+    src: /home/{{ user.name }}/.tmux/.tmux.conf.local
+    dest: /home/{{ user.name }}/.tmux.conf.local
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+
+- name: custom tmux config for {{ user.name }}
+  blockinfile:
+    path: /home/{{ user.name }}/.tmux.conf.local
+    block: |
+      set -gu prefix2
+      unbind C-a
+      unbind C-b
+      set -g prefix C-s
+      bind C-s send-prefix

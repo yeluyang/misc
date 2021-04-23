@@ -1,0 +1,9 @@
+---
+- hosts: nodes
+  remote_user: root
+  tasks:
+    - include_tasks: roles.yml
+      loop: "{{ users }}"
+      loop_control:
+        loop_var: user
+      tags: always

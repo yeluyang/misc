@@ -1,0 +1,37 @@
+---
+
+- name: install curl
+  package:
+    name: curl
+    state: present
+
+- name: install bison
+  package:
+    name: bison
+    state: present
+
+- name: get gvm installer in {{ user.name }}
+  become: yes
+  become_user: "{{ user.name }}"
+  get_url:
+    url: https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer
+    dest: /home/{{ user.name }}/.gvm-installer.sh
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: '0755'
+
+- name: install gvm for {{ user.name }}
+  become: yes
+  become_user: "{{ user.name }}"
+  shell:
+    cmd: /home/{{ user.name }}/.oh-my-zsh-install.sh
+    chdir: /home/{{ user.name }}
+    creates: /home/{{ user.name }}/.gvm
+
+- name: setup go env for {{ user.name }}
+  become: yes
+  become_user: "{{ user.name }}"
+  blockinfile:
+    path: /home/{{ user.name }}/.bashrc
+    block: |
+      export GOPATH="${HOME}" && export GOPROXY="https://goproxy.io" && export GO111MODULE="auto"

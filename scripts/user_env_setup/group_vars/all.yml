@@ -1,0 +1,4 @@
+users:
+  - name: "your_name"
+    pass: "your_secret"
+    email: "your_email@example.com"
