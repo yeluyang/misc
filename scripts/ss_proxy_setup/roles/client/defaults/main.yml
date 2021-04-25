@@ -1,0 +1,13 @@
+proxy_server: "{{ hostvars[server_name] }}"
+proxy_pass: "{{ proxy_server['proxy_pass'] }}"
+proxy_client_port: "{{ proxy_server['proxy_client_port'] }}"
+proxy_server_host: "{{ proxy_server['ansible_host'] }}"
+proxy_server_port: "{{ proxy_server['proxy_server_port'] }}"
+
+tsocks_conf_dir: /etc/tsocks
+tsocks_conf: "{{ tsocks_conf_dir }}/tsocks.{{ proxy_client_port }}.conf"
+
+proxy_client_config_dir: /etc/shadowsocks/{{ proxy_client_port }}
+proxy_client_config: "{{ proxy_client_config_dir }}/{{ proxy_server_host }}:{{ proxy_server_port }}.json"
+
+daemon_service_name: shadowsocks.client.{{ proxy_client_port }}.service

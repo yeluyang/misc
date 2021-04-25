@@ -1,0 +1,13 @@
+---
+
+- hosts: servers
+  tags: server
+  roles:
+    - role: setup
+    - role: server
+
+- hosts: clients
+  tags: client
+  roles:
+    - role: setup
+    - role: client

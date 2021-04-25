@@ -1,0 +1,8 @@
+proxy_server: "{{ hostvars[inventory_hostname] }}"
+proxy_pass: "{{ proxy_server['proxy_pass'] }}"
+proxy_server_port: "{{ proxy_server['proxy_server_port'] }}"
+
+proxy_server_config_dir: /etc/shadowsocks
+proxy_server_config: "{{ proxy_server_config_dir }}/{{ proxy_server_port }}.json"
+
+daemon_service_name: shadowsocks.server.{{ proxy_server_port }}.service

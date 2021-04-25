@@ -1,0 +1,12 @@
+---
+
+- name: setup python3
+  package:
+    name: python3
+    state: present
+
+- name: install shadowsocks
+  pip:
+    name: shadowsocks
+    executable: pip3
+    state: present

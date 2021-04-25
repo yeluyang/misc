@@ -1,0 +1,13 @@
+---
+
+- name: install tsocks
+  package:
+    name: tsocks
+    state: present
+
+- name: setup client
+  include_tasks:
+    file: each_proxy_server.yml
+  loop: "{{ groups['servers'] }}"
+  loop_control:
+    loop_var: server_name

@@ -1,0 +1,25 @@
+---
+- name: create shadowsocks server config directory
+  file:
+    path: "{{ proxy_server_config_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: setup shadowsocks server config
+  template:
+    src: config.json.j2
+    dest: "{{ proxy_server_config }}"
+    mode: '0644'
+
+- name: setup shadowsocks server daemon config
+  template:
+    src: shadowsocks.server.service.j2
+    dest: /etc/systemd/system/{{ daemon_service_name }}
+    mode: '0644'
+
+- name: setup shadowsocks server daemon
+  systemd:
+    name: "{{ daemon_service_name }}"
+    state: started
+    enabled: yes
+    daemon_reload: yes
