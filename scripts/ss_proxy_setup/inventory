@@ -1,5 +1,7 @@
 [clients]
-client-0-0-0-0 ansible_host=0.0.0.0 ansible_ssh_user='root' ansible_ssh_pass='your_root_secret' ansible_python_interpreter=auto
+
+[proxy_on_1080:vars]
+proxy_client_port=1080
 
 [proxy_on_1080]
 server-your-remote-host-ip ansible_host=your.remote.host.ip ansible_ssh_user='root' ansible_ssh_pass='your_root_secret'

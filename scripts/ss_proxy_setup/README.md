@@ -7,6 +7,6 @@
    - add more local proxy port:
      1. add new group, named it like "proxy_on_{{PORT}}"
      1. add hosts under new group
-     1. create new group vars file "proxy_on_{{PORT}}.yml" in "group_vars/"
-     1. set var "proxy_client_port" as "{{PORT}}" like "proxy_client_port: {{PORT}}"
+     1. set vars to new group, named it like "proxy_on_{{PORT}}:vars"
+     1. add vars "proxy_client_port={{PORT}}" under new group vars
 1. run `ansible-playbook main.yml`
