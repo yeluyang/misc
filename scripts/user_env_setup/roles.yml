@@ -3,8 +3,23 @@
   include_role:
     name: setup
     apply:
-      tags: setup
-  tags: setup
+      tags:
+        - setup
+        - basic
+  tags:
+    - setup
+    - basic
+
+- name: setup git for {{ user.name }}
+  include_role:
+    name: git
+    apply:
+      tags:
+        - git
+        - basic
+  tags:
+    - git
+    - basic
 
 - name: setup tmux for {{ user.name }}
   include_role:
@@ -19,13 +34,6 @@
     apply:
       tags: zsh
   tags: zsh
-
-- name: setup git for {{ user.name }}
-  include_role:
-    name: git
-    apply:
-      tags: git
-  tags: git
 
 - name: setup golang for {{ user.name }}
   include_role:
