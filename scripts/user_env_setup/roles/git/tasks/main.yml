@@ -10,22 +10,6 @@
     name: git-lfs
     state: present
 
-- name: setup git author name as {{ user.name }}
-  become: yes
-  become_user: "{{ user.name }}"
-  git_config:
-    name: user.name
-    scope: global
-    value: "{{ user.name }}"
-
-- name: setup git author email as {{ user.email }}
-  become: yes
-  become_user: "{{ user.name }}"
-  git_config:
-    name: user.email
-    scope: global
-    value: "{{ user.email }}"
-
 - name: setup git credential helper as store for {{ user.name }}
   become: yes
   become_user: "{{ user.name }}"
@@ -42,11 +26,29 @@
     scope: global
     value: simple
 
+- name: setup git author name for {{ user.name }}
+  become: yes
+  become_user: "{{ user.name }}"
+  git_config:
+    name: user.name
+    scope: global
+    value: "{{ user.git.author }}"
+  when: user.git.author is defined
+
+- name: setup git author email for {{ user.name }}
+  become: yes
+  become_user: "{{ user.name }}"
+  git_config:
+    name: user.email
+    scope: global
+    value: "{{ user.git.email }}"
+  when: user.git.email is defined
+
 - name: setup git lfs.url for {{ user.name }}
   become: yes
   become_user: "{{ user.name }}"
   git_config:
     name: lfs.url
     scope: global
-    value: "{{ user.lfs }}"
-  when: user.lfs is defined
+    value: "{{ user.git.lfs }}"
+  when: user.git.lfs is defined

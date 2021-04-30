@@ -1,4 +1,7 @@
 users:
   - name: "your_name"
     pass: "your_secret"
-    email: "your_email@example.com"
+    git:
+      author: "your_git_author_name"
+      email: "your_git_author_email@example.com"
+      lfs: "your_git_lfs_url"
