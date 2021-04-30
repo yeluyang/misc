@@ -18,7 +18,7 @@
   become: yes
   become_user: "{{ user.name }}"
   shell:
-    cmd: /home/{{ user.name }}/.oh-my-zsh-installer.sh
+    cmd: /home/{{ user.name }}/.oh-my-zsh-installer.sh --unattended
     chdir: /home/{{ user.name }}
     creates: /home/{{ user.name }}/.oh-my-zsh
 
