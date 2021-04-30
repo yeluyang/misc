@@ -28,7 +28,6 @@
     path: /home/{{ user.name }}/.tmux.conf
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-    mode: "0755"
 
 - name: prepare for tmux config custom by {{ user.name }}
   copy:
