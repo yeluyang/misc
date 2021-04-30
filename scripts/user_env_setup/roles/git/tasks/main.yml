@@ -41,3 +41,12 @@
     name: push.default
     scope: global
     value: simple
+
+- name: setup git lfs.url for {{ user.name }}
+  become: yes
+  become_user: "{{ user.name }}"
+  git_config:
+    name: lfs.url
+    scope: global
+    value: "{{ user.lfs }}"
+  when: user.lfs is defined
