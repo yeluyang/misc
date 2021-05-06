@@ -27,6 +27,14 @@
     chdir: "{{ user_home }}"
     creates: "{{ user_home }}/.oh-my-zsh"
 
+- name: include {{ user_profile }} into {{ user_home }}/.zshrc
+  become: yes
+  become_user: "{{ user.name }}"
+  blockinfile:
+    path: "{{ user_home }}/.zshrc"
+    block: |
+      source {{ user_home }}/{{ user_profile }}
+
 - name: setup {{ user.name }}'s login shell
   user:
     name: "{{ user.name }}"

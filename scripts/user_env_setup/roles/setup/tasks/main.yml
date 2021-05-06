@@ -37,3 +37,23 @@
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
     mode: "0755"
+
+- name: setup user profile {{ user_home }}/{{ user_profile }}
+  become: yes
+  become_user: "{{ user.name }}"
+  file:
+    path: "{{ user_home }}/{{ user_profile }}"
+    state: touch
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "0644"
+    modification_time: preserve
+    access_time: preserve
+
+- name: include {{ user_profile }} into {{ user_home }}/.bashrc
+  become: yes
+  become_user: "{{ user.name }}"
+  blockinfile:
+    path: "{{ user_home }}/.bashrc"
+    block: |
+      source {{ user_home }}/{{ user_profile }}

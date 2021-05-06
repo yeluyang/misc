@@ -1,5 +1,4 @@
 ---
-
 - name: install curl
   package:
     name: curl
@@ -18,7 +17,7 @@
     dest: "{{ user_home }}/.gvm-installer.sh"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-    mode: '0755'
+    mode: "0755"
 
 - name: install gvm for {{ user.name }}
   become: yes
@@ -32,6 +31,6 @@
   become: yes
   become_user: "{{ user.name }}"
   blockinfile:
-    path: "{{ user_home }}/.bashrc"
+    path: "{{ user_home }}/{{ user_profile }}"
     block: |
       export GOPATH="${HOME}" && export GOPROXY="https://goproxy.io" && export GO111MODULE="auto"
