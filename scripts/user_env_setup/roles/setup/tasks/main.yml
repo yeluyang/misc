@@ -8,31 +8,31 @@
     append: yes
     groups: [docker]
 
-- name: setup /home/{{ user.name }}/src directory
+- name: setup {{ user_home }}/src directory
   become: yes
   become_user: "{{ user.name }}"
   file:
-    path: "/home/{{ user.name }}/src"
+    path: "{{ user_home }}/src"
     state: directory
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
     mode: "0755"
 
-- name: setup /home/{{ user.name }}/bin directory
+- name: setup {{ user_home }}/bin directory
   become: yes
   become_user: "{{ user.name }}"
   file:
-    path: "/home/{{ user.name }}/bin"
+    path: "{{ user_home }}/bin"
     state: directory
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
     mode: "0755"
 
-- name: setup /home/{{ user.name }}/pkg directory
+- name: setup {{ user_home }}/pkg directory
   become: yes
   become_user: "{{ user.name }}"
   file:
-    path: "/home/{{ user.name }}/pkg"
+    path: "{{ user_home }}/pkg"
     state: directory
     owner: "{{ user.name }}"
     group: "{{ user.name }}"

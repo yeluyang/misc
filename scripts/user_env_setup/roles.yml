@@ -1,14 +1,10 @@
 ---
-- name: setup {{ user.name }}
+- name: setup user {{ user.name }} with home {{ user_home }}
   include_role:
     name: setup
     apply:
-      tags:
-        - setup
-        - basic
-  tags:
-    - setup
-    - basic
+      tags: always
+  tags: always
 
 - name: setup git for {{ user.name }}
   include_role:
@@ -25,19 +21,31 @@
   include_role:
     name: tmux
     apply:
-      tags: tmux
-  tags: tmux
+      tags:
+        - tmux
+        - cli
+  tags:
+    - tmux
+    - cli
 
 - name: setup zsh for {{ user.name }}
   include_role:
     name: zsh
     apply:
-      tags: zsh
-  tags: zsh
+      tags:
+        - zsh
+        - cli
+  tags:
+    - zsh
+    - cli
 
 - name: setup golang for {{ user.name }}
   include_role:
-    name:  golang
+    name: golang
     apply:
-      tags: golang
-  tags: golang
+      tags:
+        - golang
+        - langs
+  tags:
+    - golang
+    - langs

@@ -3,6 +3,8 @@
   remote_user: root
   tasks:
     - include_tasks: roles.yml
+      vars:
+        - user_home: /home/{{ user.name }}
       loop: "{{ users }}"
       loop_control:
         loop_var: user

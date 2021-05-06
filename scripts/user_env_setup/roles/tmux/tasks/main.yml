@@ -14,12 +14,17 @@
     name: sed
     state: present
 
+- name: install git for tmux config setup
+  package:
+    name: git
+    state: present
+
 - name: pull tmux config in {{ user.name }}
   become: yes
   become_user: "{{ user.name }}"
   git:
     repo: 'https://github.com/gpakosz/.tmux.git'
-    dest: /home/{{ user.name }}/.tmux
+    dest: "{{ user_home }}/.tmux"
     update: no
 
 - name: setup tmux config for {{ user.name }}
@@ -27,8 +32,8 @@
   become_user: "{{ user.name }}"
   file:
     state: link
-    src: /home/{{ user.name }}/.tmux/.tmux.conf
-    path: /home/{{ user.name }}/.tmux.conf
+    src: "{{ user_home }}/.tmux/.tmux.conf"
+    path: "{{ user_home }}/.tmux.conf"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
 
@@ -37,8 +42,8 @@
   become_user: "{{ user.name }}"
   copy:
     remote_src: yes
-    src: /home/{{ user.name }}/.tmux/.tmux.conf.local
-    dest: /home/{{ user.name }}/.tmux.conf.local
+    src: "{{ user_home }}/.tmux/.tmux.conf.local"
+    dest: "{{ user_home }}/.tmux.conf.local"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
 
@@ -46,7 +51,7 @@
   become: yes
   become_user: "{{ user.name }}"
   blockinfile:
-    path: /home/{{ user.name }}/.tmux.conf.local
+    path: "{{ user_home }}/.tmux.conf.local"
     block: |
       set -gu prefix2
       unbind C-a

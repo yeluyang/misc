@@ -4,12 +4,17 @@
     name: zsh
     state: present
 
-- name: get zsh config installer in {{ user.name }}
+- name: install git for zsh config setup
+  package:
+    name: git
+    state: present
+
+- name: get zsh config installer in {{ user_home }}
   become: yes
   become_user: "{{ user.name }}"
   get_url:
     url: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    dest: /home/{{ user.name }}/.oh-my-zsh-installer.sh
+    dest: "{{ user_home }}/.oh-my-zsh-installer.sh"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
     mode: '0755'
@@ -18,11 +23,11 @@
   become: yes
   become_user: "{{ user.name }}"
   shell:
-    cmd: /home/{{ user.name }}/.oh-my-zsh-installer.sh --unattended
-    chdir: /home/{{ user.name }}
-    creates: /home/{{ user.name }}/.oh-my-zsh
+    cmd: "{{ user_home }}/.oh-my-zsh-installer.sh --unattended"
+    chdir: "{{ user_home }}"
+    creates: "{{ user_home }}/.oh-my-zsh"
 
-- name: setup {{ user.name }}'s shell
+- name: setup {{ user.name }}'s login shell
   user:
     name: "{{ user.name }}"
     shell: /bin/zsh
