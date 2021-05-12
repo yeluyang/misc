@@ -1,12 +1,9 @@
 ---
-- name: install zsh
+- name: install requirements for zsh
   package:
-    name: zsh
-    state: present
-
-- name: install git for zsh config setup
-  package:
-    name: git
+    name:
+      - zsh
+      - git
     state: present
 
 - name: get zsh config installer in {{ user_home }}
@@ -18,6 +15,7 @@
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
     mode: '0755'
+  tags: network
 
 - name: setup zsh config for {{ user.name }}
   become: yes
@@ -26,6 +24,7 @@
     cmd: "{{ user_home }}/.oh-my-zsh-installer.sh --unattended"
     chdir: "{{ user_home }}"
     creates: "{{ user_home }}/.oh-my-zsh"
+  tags: network
 
 - name: include {{ user_profile }} into {{ user_home }}/.zshrc
   become: yes

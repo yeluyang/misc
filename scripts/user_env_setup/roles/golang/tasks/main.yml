@@ -1,12 +1,9 @@
 ---
-- name: install curl
+- name: install requirements for gvm
   package:
-    name: curl
-    state: present
-
-- name: install bison
-  package:
-    name: bison
+    name:
+      - curl
+      - bison
     state: present
 
 - name: get gvm installer under {{ user_home }}
@@ -18,6 +15,7 @@
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
     mode: "0755"
+  tags: network
 
 - name: install gvm for {{ user.name }}
   become: yes
@@ -26,6 +24,7 @@
     cmd: "{{ user_home }}/.gvm-installer.sh"
     chdir: "{{ user_home }}"
     creates: "{{ user_home }}/.gvm"
+  tags: network
 
 - name: setup go env for {{ user.name }}
   become: yes

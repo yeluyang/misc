@@ -1,13 +1,10 @@
 ---
 
-- name: install git
+- name: install git and git-lfs
   package:
-    name: git
-    state: present
-
-- name: install git-lfs
-  package:
-    name: git-lfs
+    name:
+      - git
+      - git-lfs
     state: present
 
 - name: setup git credential helper as store for {{ user.name }}
