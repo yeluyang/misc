@@ -21,7 +21,7 @@
   become: yes
   become_user: "{{ user.name }}"
   shell:
-    cmd: "{{ user_home }}/.gvm-installer.sh"
+    cmd: "GVM_NO_UPDATE_PROFILE=YES {{ user_home }}/.gvm-installer.sh"
     chdir: "{{ user_home }}"
     creates: "{{ user_home }}/.gvm"
   tags: network
@@ -32,4 +32,5 @@
   blockinfile:
     path: "{{ user_home }}/{{ user_profile }}"
     block: |
+      [[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
       export GOPATH="${HOME}" && export GOPROXY="https://goproxy.io" && export GO111MODULE="auto"
