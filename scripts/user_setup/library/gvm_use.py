@@ -5,8 +5,7 @@
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from ansible.module_utils.basic import AnsibleModule
-
-from . import gvm
+from ansible.module_utils.gvm import GVM
 
 DOCUMENTATION = r'''
 ---
@@ -27,7 +26,7 @@ def main():
         supports_check_mode=True,
     )
 
-    g = gvm.GVM(module)
+    g = GVM(module)
     version = module.params["version"]
     g.use(version)
     g.exit()

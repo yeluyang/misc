@@ -26,6 +26,23 @@
     creates: "{{ user_home }}/.gvm"
   tags: network
 
+- name: install golang for {{ user.name }} via gvm
+  become: yes
+  become_user: "{{ user.name }}"
+  gvm_install:
+    version: "{{ version }}"
+  when: user.golang.version is defined
+  loop: "{{ user.golang.version }}"
+  loop_control:
+    loop_var: version
+
+- name: set {{ user.golang.default }} as default golang version for {{ user.name }} via gvm
+  become: yes
+  become_user: "{{ user.name }}"
+  gvm_use:
+    version: "{{ user.golang.default }}"
+  when: user.golang.default is defined
+
 - name: setup go env for {{ user.name }}
   become: yes
   become_user: "{{ user.name }}"

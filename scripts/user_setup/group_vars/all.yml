@@ -5,3 +5,7 @@ users:
       author: "your_git_author_name"
       email: "your_git_author_email@example.com"
       lfs: "your_git_lfs_url"
+    golang:
+      version:
+        - "major.minor.patch"
+      default: "major.minor.patch"
