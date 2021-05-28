@@ -8,33 +8,11 @@ from typing import Any, List, Dict, Tuple
 
 from ansible.module_utils.basic import AnsibleModule
 
-DOCUMENTATION = r'''
----
-'''
-
-EXAMPLES = r'''
-'''
-
-RETURN = r'''
-'''
-
-
-def main():
-    module = AnsibleModule(
-        argument_spec=dict(
-            version=dict(type='str', required=True),
-        ),
-        supports_check_mode=True,
-    )
-
-    gvm = GVM(module)
-    gvm.run()
-
 
 class GVM:
     def __init__(self, module: AnsibleModule) -> None:
-        self.module = module
-        self.result = dict(
+        self.__module = module
+        self.__result = dict(
             changed=False,
             failed=False,
             msg="",
@@ -45,58 +23,51 @@ class GVM:
             stderr_lines=[],
         )
 
-    def run(self) -> None:
-        if self.module.check_mode:
-            self._ok()
-        version = self.module.params["version"]
-        if not self._install(version):
-            self._exit()
-        if not self._use(version):
-            self._exit()
+    def check_mode(self) -> bool:
+        return self.__module.check_mode
 
-    def _install(self, version: str) -> bool:
+    def check(self) -> None:
+        self.exit()
+
+    def install(self, version: str) -> bool:
         cmd = "gvm install {} -B".format(version)
-        self.result["msg"] += cmd+";"
-        return self._update(*self.module.run_command(cmd))
+        self.__result["cmd"] = cmd
+        return self.__update(*self.__module.run_command(cmd))
 
-    def _use(self, version: str) -> bool:
+    def use(self, version: str) -> bool:
         cmd = "gvm use {} --default".format(version)
-        self.result["msg"] += cmd+";"
-        return self._update(*self.module.run_command(cmd))
+        self.__result["cmd"] = cmd
+        return self.__update(*self.__module.run_command(cmd))
 
-    def _update(self, rc: int, stdout, stderr) -> bool:
+    def exit(self) -> None:
+        if self.__result["failed"]:
+            self.__module.fail_json(**self.__result)
+        else:
+            self.__module.exit_json(**self.__result)
+
+    def __update(self, rc: int, stdout, stderr) -> bool:
         if isinstance(stdout, list):
-            self.result["stdout_lines"].extend(stdout)
+            self.__result["stdout_lines"] = stdout
         else:
             assert isinstance(stdout, str)
-            self.result["stdout_lines"].append(stdout)
+            self.__result["stdout"] = stdout
 
         if isinstance(stderr, list):
-            self.result["stderr_lines"].extend(stderr)
+            self.__result["stderr_lines"] = stderr
         else:
             assert isinstance(stderr, str)
-            self.result["stderr_lines"].append(stderr)
+            self.__result["stderr"] = stderr
 
-        self.result["rc"] = rc
+        self.__result["rc"] = rc
         if rc != 0:
-            self._fail()
+            self.__fail()
             return False
         else:
-            self._change()
+            self.__change()
             return True
 
-    def _change(self) -> None:
-        self.result["changed"] = True
+    def __change(self) -> None:
+        self.__result["changed"] = True
 
-    def _fail(self) -> None:
-        self.result["failed"] = True
-
-    def _exit(self) -> None:
-        if self.result["failed"]:
-            self.module.fail_json(**self.result)
-        else:
-            self.module.exit_json(**self.result)
-
-
-if __name__ == "__main__":
-    main()
+    def __fail(self) -> None:
+        self.__result["failed"] = True
