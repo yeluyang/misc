@@ -1,5 +1,3 @@
-user_profile: ".common.profile"
-
 users:
   - name: "your_name"
     pass: "your_secret"
