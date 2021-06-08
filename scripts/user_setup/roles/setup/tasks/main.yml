@@ -5,8 +5,6 @@
     name: "{{ user.name }}"
     password: "{{ user.pass | password_hash('sha512') }}"
     update_password: on_create
-    append: yes
-    groups: [docker]
 
 - name: setup home directory for user {{ user.name }}
   become: yes

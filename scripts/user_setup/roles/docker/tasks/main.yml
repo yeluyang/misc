@@ -1,0 +1,16 @@
+---
+
+- name: install {{ docker_pkg_name[ansible_distribution] }} for {{ ansible_distribution }}
+  vars:
+    - docker_pkg_name:
+        Ubuntu: docker.io
+        CentOS: docker.ce
+  package:
+    name: "{{ docker_pkg_name[ansible_distribution] }}"
+    state: present
+
+- name: add user {{ user.name }} in docker group
+  user:
+    name: "{{ user.name }}"
+    append: yes
+    groups: [docker]

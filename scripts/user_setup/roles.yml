@@ -49,3 +49,14 @@
   tags:
     - golang
     - langs
+
+- name: setup docker for {{ user.name }}
+  include_role:
+    name: docker
+    apply:
+      tags:
+        - docker
+        - dev-backend
+  tags:
+    - docker
+    - dev-backend
