@@ -39,6 +39,17 @@
     - zsh
     - cli
 
+- name: setup rust for {{ user.name }}
+  include_role:
+    name: rust
+    apply:
+      tags:
+        - rust
+        - langs
+  tags:
+    - rust
+    - langs
+
 - name: setup golang for {{ user.name }}
   include_role:
     name: golang
