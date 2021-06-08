@@ -46,6 +46,7 @@
   become_user: "{{ user.name }}"
   blockinfile:
     path: "{{ user_home }}/.tmux.conf.local"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK user_setup/{{ role_name }}"
     block: |
       set -gu prefix2
       unbind C-a

@@ -48,6 +48,7 @@
   become_user: "{{ user.name }}"
   blockinfile:
     path: "{{ user_home }}/{{ user_profile }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK user_setup/{{ role_name }}"
     block: |
       [[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
       export GOPATH="${HOME}" && export GOPROXY="https://goproxy.io" && export GO111MODULE="auto"

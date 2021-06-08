@@ -39,5 +39,6 @@
   become_user: "{{ user.name }}"
   blockinfile:
     path: "{{ user_home }}/.bashrc"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK user_setup/{{ role_name }}"
     block: |
       source {{ user_home }}/{{ user_profile }}
