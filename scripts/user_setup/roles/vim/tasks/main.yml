@@ -1,0 +1,48 @@
+---
+
+- name: install vim
+  package:
+    name: vim
+    state: present
+
+- name: install dependencies of vim config
+  package:
+    name:
+      - curl
+      - git
+    state: present
+
+- name: setup vim env for {{ user.name }}
+  become: yes
+  become_user: "{{ user.name }}"
+  blockinfile:
+    path: "{{ user_home }}/{{ user_profile }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK user_setup/{{ role_name }}"
+    block: |
+      export EDITOR=vim
+
+- name: install requirements of vim config
+  package:
+    name: git
+    state: present
+  tags: pro
+
+- name: get vim config installer in {{ user_home }}
+  become: yes
+  become_user: "{{ user.name }}"
+  get_url:
+    url: https://spacevim.org/install.sh
+    dest: "{{ user_home }}/.space-vim-installer.sh"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: '0755'
+  tags: pro
+
+- name: setup vim config for {{ user.name }}
+  become: yes
+  become_user: "{{ user.name }}"
+  shell:
+    cmd: "{{ user_home }}/.space-vim-installer.sh"
+    chdir: "{{ user_home }}"
+    creates: "{{ user_home }}/.SpaceVim"
+  tags: pro
