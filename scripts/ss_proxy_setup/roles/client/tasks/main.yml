@@ -1,8 +1,10 @@
 ---
 
-- name: install tsocks
+- name: install tsocks and connect-proxy
   package:
-    name: tsocks
+    name:
+      - tsocks
+      - connect-proxy
     state: present
 
 - name: setup client

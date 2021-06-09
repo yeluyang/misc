@@ -23,8 +23,23 @@
     dest: "{{ tsocks_conf }}"
     mode: '0644'
 
+- name: use tsocks config {{ tsocks_conf }}
+  file:
+    path: /etc/tsocks.conf
+    src: "{{ tsocks_conf }}"
+    state: link
+    force: yes
+    mode: '0644'
+
 - name: setup shadowsocks daemon config client to {{ proxy_server_host }}:{{ proxy_server_port }}
   template:
     src: shadowsocks.client.service.j2
     dest: /etc/systemd/system/{{ daemon_service_name }}
     mode: '0644'
+
+- name: setup shadowsocks server daemon
+  systemd:
+    name: "{{ daemon_service_name }}"
+    state: started
+    enabled: yes
+    daemon_reload: yes
