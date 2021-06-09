@@ -12,20 +12,20 @@
     apply:
       tags:
         - git
-        - basic
+        - always
   tags:
     - git
-    - basic
+    - always
 
-- name: setup tmux for {{ user.name }}
+- name: setup vim for {{ user.name }}
   include_role:
-    name: tmux
+    name: vim
     apply:
       tags:
-        - tmux
+        - vim
         - cli
   tags:
-    - tmux
+    - vim
     - cli
 
 - name: setup zsh for {{ user.name }}
@@ -37,6 +37,17 @@
         - cli
   tags:
     - zsh
+    - cli
+
+- name: setup tmux for {{ user.name }}
+  include_role:
+    name: tmux
+    apply:
+      tags:
+        - tmux
+        - cli
+  tags:
+    - tmux
     - cli
 
 - name: setup rust for {{ user.name }}

@@ -9,7 +9,6 @@
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
     mode: "0755"
-  tags: network
 
 - name: setup rustup mirror for {{ user.name }}
   become: yes
@@ -28,7 +27,6 @@
     cmd: "{{ user_home }}/.rustup-installer.sh -y -q --no-modify-path"
     chdir: "{{ user_home }}"
     creates: "{{ user_home }}/.cargo"
-  tags: network
 
 - name: setup cargo config file {{ user_home }}/.cargo/config
   become: yes

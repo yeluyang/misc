@@ -1,10 +1,14 @@
 ---
-- name: install requirements for zsh
+- name: install zsh
   package:
-    name:
-      - zsh
-      - git
+    name: zsh
     state: present
+
+- name: install requirements of zsh config
+  package:
+    name: git
+    state: present
+  tags: pro
 
 - name: get zsh config installer in {{ user_home }}
   become: yes
@@ -15,7 +19,7 @@
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
     mode: '0755'
-  tags: network
+  tags: pro
 
 - name: setup zsh config for {{ user.name }}
   become: yes
@@ -24,7 +28,7 @@
     cmd: "{{ user_home }}/.oh-my-zsh-installer.sh --unattended"
     chdir: "{{ user_home }}"
     creates: "{{ user_home }}/.oh-my-zsh"
-  tags: network
+  tags: pro
 
 - name: include {{ user_profile }} into {{ user_home }}/.zshrc
   become: yes
@@ -34,6 +38,7 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK user_setup/{{ role_name }}"
     block: |
       source {{ user_home }}/{{ user_profile }}
+  tags: pro
 
 - name: setup {{ user.name }}'s login shell
   user:

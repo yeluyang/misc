@@ -6,6 +6,21 @@
     password: "{{ user.pass | password_hash('sha512') }}"
     update_password: on_create
 
+- name: determine available groups
+  getent:
+    database: group
+
+- name: add user into group
+  user:
+    name: "{{ user.name }}"
+    groups: [ "{{ user_group }}" ]
+    append: yes
+  when: user_group in getent_group
+  loop:
+      - docker
+  loop_control:
+    loop_var: user_group
+
 - name: setup home directory for user {{ user.name }}
   become: yes
   become_user: "{{ user.name }}"

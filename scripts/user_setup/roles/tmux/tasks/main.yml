@@ -1,14 +1,19 @@
 ---
-- name: install requirements for tmux
+- name: install tmux
+  package:
+    name: tmux
+    state: present
+
+- name: install requirements for tmux config
   package:
     name:
-      - tmux
       - perl
       - sed
       - git
       - xsel
       - xclip
     state: present
+  tags: pro
 
 - name: pull tmux config in {{ user.name }}
   become: yes
@@ -17,7 +22,7 @@
     repo: 'https://github.com/gpakosz/.tmux.git'
     dest: "{{ user_home }}/.tmux"
     update: no
-  tags: network
+  tags: pro
 
 - name: setup tmux config for {{ user.name }}
   become: yes
@@ -28,7 +33,7 @@
     path: "{{ user_home }}/.tmux.conf"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-  tags: network
+  tags: pro
 
 - name: prepare for tmux config custom by {{ user.name }}
   become: yes
@@ -39,7 +44,7 @@
     dest: "{{ user_home }}/.tmux.conf.local"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-  tags: network
+  tags: pro
 
 - name: custom tmux config for {{ user.name }}
   become: yes
@@ -57,4 +62,4 @@
       tmux_conf_copy_to_os_clipboard=true
       tmux_conf_new_pane_reconnect_ssh=true
       tmux_conf_theme_highlight_focused_pane=true
-  tags: network
+  tags: pro

@@ -15,7 +15,6 @@
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
     mode: "0755"
-  tags: network
 
 - name: install gvm for {{ user.name }}
   become: yes
@@ -24,7 +23,6 @@
     cmd: "GVM_NO_UPDATE_PROFILE=YES {{ user_home }}/.gvm-installer.sh"
     chdir: "{{ user_home }}"
     creates: "{{ user_home }}/.gvm"
-  tags: network
 
 - name: install golang for {{ user.name }} via gvm
   become: yes
