@@ -54,6 +54,28 @@
   become_user: "{{ user.name }}"
   blockinfile:
     path: "{{ user_home }}/.bashrc"
-    marker: "# {mark} ANSIBLE MANAGED BLOCK user_setup/{{ role_name }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK user_setup/{{ role_name }}/setup_shell"
     block: |
       source {{ user_home }}/{{ user_profile }}
+
+- name: setup user ssh config file
+  become: yes
+  become_user: "{{ user.name }}"
+  file:
+    path: "{{ user_home }}/.ssh/config"
+    state: touch
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "0644"
+    modification_time: preserve
+    access_time: preserve
+
+- name: setup {{ user_home }}/.ssh/config
+  become: yes
+  become_user: "{{ user.name }}"
+  blockinfile:
+    path: "{{ user_home }}/.ssh/config"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK user_setup/{{ role_name }}/setup_ssh"
+    block: |
+      Host *
+        ServerAliveInterval 240
