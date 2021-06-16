@@ -37,7 +37,7 @@
     - bin
     - pkg
 
-- name: setup user profile {{ user_home }}/{{ user_profile }}
+- name: create user profile {{ user_home }}/{{ user_profile }}
   become: yes
   become_user: "{{ user.name }}"
   file:
@@ -48,6 +48,33 @@
     mode: "0644"
     modification_time: preserve
     access_time: preserve
+
+- name: setup user profile {{ user_home }}/{{ user_profile }}
+  become: yes
+  become_user: "{{ user.name }}"
+  blockinfile:
+    path: "{{ user_home }}/{{ user_profile }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK user_setup/{{ role_name }}/setup_profile"
+    block: |
+      alias proxy="
+              export all_proxy=${PROXY_SOCKS_ENDPOINT};
+              export ALL_PROXY=${PROXY_SOCKS_ENDPOINT};
+              export http_proxy=${PROXY_HTTP_ENDPOINT};
+              export HTTP_PROXY=${PROXY_HTTP_ENDPOINT};
+              export https_proxy=${PROXY_HTTPS_ENDPOINT};
+              export HTTPS_PROXY=${PROXY_HTTPS_ENDPOINT};"
+
+      alias unproxy="
+              unset all_proxy;
+              unset ALL_PROXY;"
+              unset http_proxy;
+              unset HTTP_PROXY;
+              unset https_proxy;
+              unset HTTPS_PROXY;
+
+      function ssh_proxy() {
+      	tsocks ssh $*
+      }
 
 - name: include {{ user_profile }} into {{ user_home }}/.bashrc
   become: yes
