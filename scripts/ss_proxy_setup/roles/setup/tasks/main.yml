@@ -1,6 +1,22 @@
 ---
 
-- name: install shadowsocks
+- name: install shadowsocks for {{ ansible_distribution }}
   package:
     name: shadowsocks-libev
     state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: setup python3-pip for {{ ansible_distribution }}
+  package:
+    name:
+      - python3
+      - python3-pip
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- name: install shadowsocks for {{ ansible_distribution }}
+  pip:
+    name: shadowsocks
+    executable: pip3
+    state: present
+  when: ansible_distribution == "CentOS"

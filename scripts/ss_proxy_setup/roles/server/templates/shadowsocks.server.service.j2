@@ -5,7 +5,8 @@ Description=shadowsocks proxy server
 User=root
 Group=root
 Type=simple
-ExecStart=/usr/bin/ss-server -c {{ proxy_server_config }}
+ExecStart=/usr/local/bin/ssserver -c {{ proxy_server_config }} --log-file /var/log/{{ daemon_service_name }}.log --pid-file /var/run/{{ daemon_service_name }}.pid start
+ExecStop=/usr/local/bin/ssserver -c {{ proxy_server_config }} --log-file /var/log/{{ daemon_service_name }}.log --pid-file /var/run/{{ daemon_service_name }}.pid stop
 
 [Install]
 WantedBy=multi-user.target
