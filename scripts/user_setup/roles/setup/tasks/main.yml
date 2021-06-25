@@ -85,6 +85,16 @@
     block: |
       source {{ user_home }}/{{ user_profile }}
 
+- name: setup user ssh config directory
+  become: yes
+  become_user: "{{ user.name }}"
+  file:
+    path: "{{ user_home }}/.ssh"
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: "0755"
+
 - name: setup user ssh config file
   become: yes
   become_user: "{{ user.name }}"
