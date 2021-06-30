@@ -8,8 +8,28 @@
 - name: setup shadowsocks config of client to {{ proxy_server_host }}:{{ proxy_server_port }}
   template:
     src: config.json.j2
-    dest: "{{ proxy_client_config }}"
+    dest: "{{ proxy_client_config_instance }}"
     mode: '0644'
+
+- name: setup shadowsocks using config
+  file:
+    path: "{{ proxy_client_config }}"
+    src: "{{ proxy_client_config_instance }}"
+    state: link
+    mode: '0644'
+
+- name: setup shadowsocks daemon config client to {{ proxy_server_host }}:{{ proxy_server_port }}
+  template:
+    src: shadowsocks.client.service.j2
+    dest: /etc/systemd/system/{{ daemon_service_name }}
+    mode: '0644'
+
+- name: setup shadowsocks server daemon
+  systemd:
+    name: "{{ daemon_service_name }}"
+    state: started
+    enabled: yes
+    daemon_reload: yes
 
 - name: create tsocks config directory
   file:
@@ -30,16 +50,3 @@
     state: link
     force: yes
     mode: '0644'
-
-- name: setup shadowsocks daemon config client to {{ proxy_server_host }}:{{ proxy_server_port }}
-  template:
-    src: shadowsocks.client.service.j2
-    dest: /etc/systemd/system/{{ daemon_service_name }}
-    mode: '0644'
-
-- name: setup shadowsocks server daemon
-  systemd:
-    name: "{{ daemon_service_name }}"
-    state: started
-    enabled: yes
-    daemon_reload: yes
