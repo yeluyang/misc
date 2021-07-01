@@ -1,12 +1,12 @@
 .PHONY: all
-all: tiny
+all: basic
 
-.PHONY: tiny
-tiny:
+.PHONY: basic
+basic:
 	ansible-playbook main.yml -t cli --skip-tags pro
 
-.PHONY: tiny_local
-tiny_local:
+.PHONY: basic_local
+basic_local:
 	ansible-playbook main.yml -c local -i local_inventory --become -t cli --skip-tags pro
 
 .PHONY: play
