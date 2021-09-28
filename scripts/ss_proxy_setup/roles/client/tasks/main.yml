@@ -5,6 +5,7 @@
     name:
       - tsocks
       - connect-proxy
+      - privoxy
     state: present
 
 - name: setup client

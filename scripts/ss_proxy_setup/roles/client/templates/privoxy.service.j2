@@ -1,0 +1,11 @@
+[Unit]
+Description=shadowsocks proxy server
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/usr/sbin/privoxy --no-daemon {{ proxy_client_http_config }}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,9 +1,9 @@
 {
     "local_address": "127.0.0.1",
-    "local_port": "{{ proxy_client_port }}",
+    "local_port": {{ proxy_client_port }},
     "timeout": 600,
     "server": "{{ proxy_server_host }}",
-    "server_port": "{{ proxy_server_port }}",
+    "server_port": {{ proxy_server_port }},
     "password": "{{ proxy_pass }}",
     "mode": "tcp_and_udp",
     "method": "aes-256-cfb"
